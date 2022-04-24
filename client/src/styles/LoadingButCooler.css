@@ -1,0 +1,32 @@
+.loading-cooler-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-cooler-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loading-cooler-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+    .loading-cooler-container {
+        flex-direction: row;
+    }
+
+    .loading-cooler-right {
+        padding-left: 1rem;
+        width: 50%;
+    }
+
+    .loading-cooler-left {
+        width: 50%;
+    }
+}
