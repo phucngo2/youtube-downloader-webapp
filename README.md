@@ -9,4 +9,4 @@ Yet another youtube downloader web application!
 ## ⚠️ Readme
 This application may require significant hardware resources on the backend. Please consider using a desktop application:
 
-👉 [Youtube Stalker Desktop Application](https://github.com/phucngo2/electron-youtube-downloader)
+👉 [Youtube Downloader Desktop Application](https://github.com/phucngo2/youtube-downloader)
