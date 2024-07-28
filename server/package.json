@@ -20,11 +20,12 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@distube/ytdl-core": "^4.13.5",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "ffmpeg-static": "^5.0.0",
     "mime-types": "^2.1.35",
-    "ytdl-core": "^4.11.0"
+    "ytdl-core": "^4.11.5"
   }
 }
