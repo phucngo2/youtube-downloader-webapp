@@ -77,7 +77,7 @@ function App() {
         {error && (
           <Message
             message={
-              error.response.data.message ||
+              error.response?.data.message ||
               "Sorry! We could not find your video!"
             }
             className="red w-content"
