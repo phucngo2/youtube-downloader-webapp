@@ -13,79 +13,79 @@ import VideoConvert from "./components/VideoConvert";
 import Loading from "./components/Loading";
 
 function App() {
-    const [fetchData, { loading, data, error }] = useLazyFetch("", {});
+  const [fetchData, { loading, data, error }] = useLazyFetch("", {});
 
-    const [value, setValue] = React.useState("");
+  const [value, setValue] = React.useState("");
 
-    const [isShown, setIsShown] = React.useState<boolean>(false);
+  const [isShown, setIsShown] = React.useState<boolean>(false);
 
-    useEffect(() => {
-        setIsShown(false);
-    }, [data]);
+  useEffect(() => {
+    setIsShown(false);
+  }, [data]);
 
-    const handleSubmit = () => {
-        // Validate form
-        if (!value.trim()) return;
+  const handleSubmit = () => {
+    // Validate form
+    if (!value.trim()) return;
 
-        // Fetch data
-        fetchData("/video", {
-            method: "POST",
-            data: {
-                url: value,
-            },
-        });
-    };
+    // Fetch data
+    fetchData("/video", {
+      method: "POST",
+      data: {
+        url: value,
+      },
+    });
+  };
 
-    return (
-        <div className="App">
-            <div className="container border rounded">
-                <h4 className="fs-heading heading">
-                    <i className="icon youtube red"></i> Youtube video stalker
-                </h4>
+  return (
+    <div className="App">
+      <div className="container border rounded">
+        <h4 className="fs-heading heading">
+          <i className="icon youtube red"></i> Youtube video stalker
+        </h4>
 
-                <SearchBox
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    handleSubmit={handleSubmit}
-                    placeholder={"Patse link here..."}
-                    className="w-content py-2"
-                />
+        <SearchBox
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          handleSubmit={handleSubmit}
+          placeholder={"Patse link here..."}
+          className="w-content py-2"
+        />
 
-                {loading && <Loading />}
+        {loading && <Loading />}
 
-                {data && (
-                    <>
-                        <VideoInfo data={data} />
+        {data && (
+          <>
+            <VideoInfo data={data} />
 
-                        <VideoConvert data={data} />
+            <VideoConvert data={data} />
 
-                        {isShown && <VideoFormats data={data} />}
+            {isShown && <VideoFormats data={data} />}
 
-                        <div className="ui horizontal divider w-content">
-                            <div
-                                style={{
-                                    cursor: "pointer",
-                                }}
-                                onClick={() => setIsShown(!isShown)}
-                            >
-                                {isShown ? "Show less!" : "Show more!"}
-                            </div>
-                        </div>
-                    </>
-                )}
-
-                {error && (
-                    <Message
-                        message={
-                            error.response.data.message ||
-                            "Sorry! We could not find your video!"
-                        }
-                        className="red w-content"
-                    />
-                )}
+            <div className="ui horizontal divider w-content">
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => setIsShown(!isShown)}
+              >
+                {isShown ? "Show less!" : "Show more!"}
+              </div>
             </div>
-        </div>
-    );
+          </>
+        )}
+
+        {error && (
+          <Message
+            message={
+              error.response.data.message ||
+              "Sorry! We could not find your video!"
+            }
+            className="red w-content"
+          />
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default App;
