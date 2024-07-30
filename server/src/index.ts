@@ -1,9 +1,10 @@
 // Libs
-import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import express from "express";
 
 // Routes
+import { downloadRouter } from "./routes/download.route";
 import { keywordRouter } from "./routes/keyword.route";
 import { videoRouter } from "./routes/video.route";
 
@@ -21,7 +22,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-const routes = [keywordRouter, videoRouter];
+const routes = [keywordRouter, videoRouter, downloadRouter];
 
 for (let route of routes) {
   app.use("/api", route);
