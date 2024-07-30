@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
+import path from "node:path";
 import { FormatMapper } from "../mappers/video.mapper";
 import { FfmpegHandler } from "../services/ffmpegHandler";
 import { FileSystemHandler } from "../services/fileSystemHanlder";
-import { Random } from "../utils/random";
 import { YoutubeDownloader } from "../services/youtubeDownloader";
+import { IRenderRequest } from "../types";
+import { Random } from "../utils/random";
+import { importWorker } from "../utils/worker";
 
 export class VideoController {
   async getVideoInfo(req: Request, res: Response) {
@@ -106,7 +109,7 @@ export class VideoController {
   }
 
   async downloadMp3(req: Request, res: Response) {
-    const { url } = req.body as RequestBody;
+    const { url, quality } = req.body as RequestBody;
 
     if (!url) {
       return res.status(400).json({
@@ -115,30 +118,29 @@ export class VideoController {
     }
 
     const videoId = Random.uuid();
-
-    const audioReadableStream = await YoutubeDownloader.downloadVideo(
+    let savePath = path.join(`static`, `${videoId}.mp3`);
+    const workerData: IRenderRequest = {
+      itag: quality,
       url,
-      "highestaudio"
+      videoTitle: videoId,
+      savePath,
+    };
+
+    const worker = importWorker(
+      path.resolve(__dirname, "../workers/audio-download.worker.ts"),
+      { workerData }
     );
 
-    const { ffmpegProcess, filePath } = FfmpegHandler.convertMp3(
-      audioReadableStream,
-      videoId
-    );
-
-    ffmpegProcess.on("exit", (code: number) => {
-      if (code === 0) {
-        return res.download(filePath, (err: any) => {
+    worker.on("message", (message) => {
+      if ("status" in message) {
+        return res.download(savePath, (err: any) => {
           if (err) {
             console.log(err);
           } else {
-            FileSystemHandler.unlink(filePath);
+            FileSystemHandler.unlink(savePath);
           }
         });
       } else {
-        return res.status(500).json({
-          error: "Failed to convert video",
-        });
       }
     });
   }
