@@ -4,19 +4,17 @@ import "semantic-ui-css/semantic.css";
 import "./App.css";
 import "./styles/home.css";
 
-import SearchBox from "./components/SearchBox";
-import { useLazyFetch } from "./utils/useFetch";
-import VideoInfo from "./components/VideoInfo";
-import VideoFormats from "./components/VideoFormats";
-import Message from "./components/Message";
-import VideoConvert from "./components/VideoConvert";
 import Loading from "./components/Loading";
+import Message from "./components/Message";
+import SearchBox from "./components/SearchBox";
+import VideoConvert from "./components/VideoConvert";
+import VideoFormats from "./components/VideoFormats";
+import VideoInfo from "./components/VideoInfo";
+import { useVideoSearchMutation } from "./queries";
 
 function App() {
-  const [fetchData, { loading, data, error }] = useLazyFetch("", {});
-
+  const { mutate, isPending, data, error } = useVideoSearchMutation();
   const [value, setValue] = React.useState("");
-
   const [isShown, setIsShown] = React.useState<boolean>(false);
 
   useEffect(() => {
@@ -28,11 +26,8 @@ function App() {
     if (!value.trim()) return;
 
     // Fetch data
-    fetchData("/video", {
-      method: "POST",
-      data: {
-        url: value,
-      },
+    mutate({
+      url: value,
     });
   };
 
@@ -51,7 +46,7 @@ function App() {
           className="w-content py-2"
         />
 
-        {loading && <Loading />}
+        {isPending && <Loading />}
 
         {data && (
           <>
