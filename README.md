@@ -7,7 +7,7 @@ Yet another youtube downloader web application!
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Semantic UI React](https://img.shields.io/badge/Semantic%20UI%20React-%2335BDB2.svg?style=for-the-badge&logo=SemanticUIReact&logoColor=white)
 ## 🎯 To-Dos
-- [ ] Improve performance by implementing `worker_threads`.
+- [X] Improve performance by implementing `worker_threads`.
 - [ ] Implement real-time video download progress using WebSocket.
 ## ⚠️ Readme
 This application may require significant hardware resources on the backend. Please consider using a desktop application:
