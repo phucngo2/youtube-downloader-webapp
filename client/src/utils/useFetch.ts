@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect } from "react";
+import axios from "./axios";
 
 interface FetchOption {
   method?: "GET" | "POST" | "PUT" | "DELETE";
@@ -20,8 +20,6 @@ interface StateHandle {
   setLoading: (loading: boolean) => void;
   setError: (error: any) => void;
 }
-
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
 
 const useFetch = (url: string, options: FetchOption) => {
   const [data, setData] = React.useState<any>(null);
