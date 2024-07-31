@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { VideoFormat, VideoData } from "../types";
 import { downloadBlob } from "../utils/helpers";
 
 interface DownloadButtonProps {
@@ -7,7 +8,7 @@ interface DownloadButtonProps {
   setDownloading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsShowing: React.Dispatch<React.SetStateAction<boolean>>;
   data: VideoData;
-  format: Format;
+  format: VideoFormat;
 }
 
 const DownloadConvertedButton: React.FC<DownloadButtonProps> = ({
@@ -17,7 +18,7 @@ const DownloadConvertedButton: React.FC<DownloadButtonProps> = ({
   data,
   format,
 }) => {
-  const handleDownload = (format: Format) => {
+  const handleDownload = (format: VideoFormat) => {
     setDownloading(true);
     setIsShowing(true);
 
