@@ -8,8 +8,9 @@ Yet another youtube downloader web application!
 ![Semantic UI React](https://img.shields.io/badge/Semantic%20UI%20React-%2335BDB2.svg?style=for-the-badge&logo=SemanticUIReact&logoColor=white)
 ## 🎯 To-Dos
 - [X] Improve performance by implementing `worker_threads`.
-- [ ] Implement real-time video download progress using WebSocket.
+- [ ] Implement real-time video download progress using `WebSocket`.
+- [ ] Improve the file download workflow.
 ## ⚠️ Readme
-This application may require significant hardware resources on the backend. Please consider using a desktop application:
+This repository is a demo for learning purposes! The production deployment may require significant hardware resources on the backend server when hosted. For a more efficient experience, especially for high-end users, consider using the desktop application:
 
 👉 [Youtube Downloader Desktop Application](https://github.com/phucngo2/youtube-downloader)
