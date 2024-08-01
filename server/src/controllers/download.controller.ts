@@ -5,11 +5,13 @@ import {
   DownloadStatusEnum,
   IDownloadMessage,
   IDownloadResult,
+  IEventDownloadProgress,
   IRenderRequest,
   VideoDownloadRequestBody,
 } from "../types";
 import { Random } from "../utils/random";
 import { importWorker } from "../utils/worker";
+import { EVENT_DOWNLOAD_VIDEO_PROGRESS } from "../config";
 
 export class DownloadController {
   async downloadVideoButCooler(req: Request, res: Response) {
@@ -36,7 +38,7 @@ export class DownloadController {
     );
 
     worker.on("message", (message: IDownloadMessage | IDownloadResult) =>
-      handleWorkerMessage(res, savePath, message)
+      handleWorkerMessage(req, res, savePath, message)
     );
   }
 
@@ -64,12 +66,13 @@ export class DownloadController {
     );
 
     worker.on("message", (message: IDownloadMessage | IDownloadResult) =>
-      handleWorkerMessage(res, savePath, message)
+      handleWorkerMessage(req, res, savePath, message)
     );
   }
 }
 
 function handleWorkerMessage(
+  req: Request,
   res: Response,
   savePath: string,
   message: IDownloadMessage | IDownloadResult
@@ -91,5 +94,10 @@ function handleWorkerMessage(
     });
     // Progress
   } else {
+    let wsMessage: IEventDownloadProgress = {
+      event: EVENT_DOWNLOAD_VIDEO_PROGRESS,
+      data: message,
+    };
+    req.ws?.send(JSON.stringify(wsMessage));
   }
 }
