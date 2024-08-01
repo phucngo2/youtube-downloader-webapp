@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { VideoData } from "../types";
-import { humanFileSize } from "../utils/helpers";
+import { filterDownloadFormat, humanFileSize } from "../utils/helpers";
 import { useModal } from "../utils/useModal";
 import DownloadConvertedButton from "./DownloadConvertedButton";
 import LoadingButNotCooler from "./LoadingButNotCooler";
@@ -15,43 +15,9 @@ const VideoConvert: React.FC<VideoConvertProps> = ({ data }) => {
   const [downloading, setDownloading] = React.useState(false);
   const { isShowing, setIsShowing } = useModal();
 
-  const dataConvert = data.formats.filter(
-    (format) =>
-      format.qualityLabel &&
-      format.container === "mp4" &&
-      (format.qualityLabel.startsWith("720") ||
-        format.qualityLabel.startsWith("1080"))
-  );
-
-  dataConvert.unshift({
-    quality: "highestvideo",
-    container: "mp4",
-    contentLength: "Very large!",
-    itag: "highestvideo",
-    mimeType: "video/mp4",
-    qualityLabel: "Highest Quality",
-    hasAudio: false,
-    hasVideo: true,
-    fps: 0,
-    bitrate: 0,
-    audioQuality: "",
-    url: "",
-  });
-
-  dataConvert.push({
-    quality: "highestaudio",
-    container: "mp3",
-    contentLength: "Very large!",
-    itag: "highestaudio",
-    mimeType: "audio/mpeg",
-    qualityLabel: "Audio",
-    hasAudio: true,
-    hasVideo: false,
-    fps: 0,
-    bitrate: 0,
-    audioQuality: "highestaudio",
-    url: "",
-  });
+  const dataConvert = useMemo(() => {
+    return filterDownloadFormat(data.formats);
+  }, [data]);
 
   return (
     <div className="w-content pt-2 pb-4 border-top">

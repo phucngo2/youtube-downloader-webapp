@@ -1,3 +1,5 @@
+import { VideoFormat } from "../types";
+
 /**
  * Format bytes as human-readable text.
  *
@@ -45,4 +47,46 @@ export function downloadBlob(blob: BlobPart, fileName: string) {
 
   document.body.appendChild(link);
   link.click();
+}
+
+export function filterDownloadFormat(formats: VideoFormat[]) {
+  let res = formats.filter(
+    (format) =>
+      format.qualityLabel &&
+      format.container === "mp4" &&
+      (format.qualityLabel.startsWith("720") ||
+        format.qualityLabel.startsWith("1080"))
+  );
+
+  res.unshift({
+    quality: "highestvideo",
+    container: "mp4",
+    contentLength: "Very large!",
+    itag: "highestvideo",
+    mimeType: "video/mp4",
+    qualityLabel: "Highest Quality",
+    hasAudio: false,
+    hasVideo: true,
+    fps: 0,
+    bitrate: 0,
+    audioQuality: "",
+    url: "",
+  });
+
+  res.push({
+    quality: "highestaudio",
+    container: "mp3",
+    contentLength: "Very large!",
+    itag: "highestaudio",
+    mimeType: "audio/mpeg",
+    qualityLabel: "Audio",
+    hasAudio: true,
+    hasVideo: false,
+    fps: 0,
+    bitrate: 0,
+    audioQuality: "highestaudio",
+    url: "",
+  });
+
+  return res;
 }

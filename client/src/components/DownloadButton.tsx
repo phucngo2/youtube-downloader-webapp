@@ -1,6 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { VideoFormat, VideoData } from "../types";
+import { VIDEO_DOWNLOAD_API_PATH } from "../config/api.config";
+import { VideoData, VideoFormat } from "../types";
+import { downloadBlob } from "../utils/helpers";
 
 interface DownloadButtonProps {
   downloading: boolean;
@@ -31,7 +33,7 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
     setIsShowing(true);
 
     // Download video from api
-    axios("/video/download", {
+    axios(VIDEO_DOWNLOAD_API_PATH, {
       method: "POST",
       data: {
         url: data.videoUrl,
@@ -43,19 +45,11 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
       onDownloadProgress,
     })
       .then((response) => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement("a");
-        link.href = url;
-
-        if (format.hasAudio && !format.hasVideo && format.container === "mp4") {
-          link.setAttribute("download", `${data.title}.mp3`);
-        } else {
-          link.setAttribute("download", `${data.title}.${format.container}`);
-        }
-
-        document.body.appendChild(link);
-        link.click();
-
+        let title =
+          format.hasAudio && !format.hasVideo && format.container === "mp4"
+            ? `${data.title}.mp3`
+            : `${data.title}.${format.container}`;
+        downloadBlob(response.data, title);
         setDownloading(false);
       })
       .catch((error) => console.log(error.response));
