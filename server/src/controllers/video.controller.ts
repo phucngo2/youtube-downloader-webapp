@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FormatMapper } from "../mappers/video.mapper";
+import { FormatMapper } from "../utils/mappers";
 import { YoutubeDownloader } from "../services/youtubeDownloader";
 import { VideoDownloadRequestBody, VideoInfoRequestBody } from "../types";
 
