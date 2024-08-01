@@ -1,3 +1,4 @@
 import axios from "axios";
-axios.defaults.baseURL = import.meta.env.VITE_API_URL;
+import { API_ENDPOINT } from "../config/endpoint.config";
+axios.defaults.baseURL = API_ENDPOINT;
 export default axios;
