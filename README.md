@@ -14,7 +14,7 @@ Yet another youtube downloader web application!
 ## ⚠️ Readme
 This repository is a demo for learning purposes and is not yet ready for production!
 
-Deploying this application in a production environment may require significant hardware resources on the backend server and might necessitate integrating integrate third-party services to handle caching, store downloaded files, and more.
+Deploying this application in a production environment may require significant hardware resources on the backend server and might necessitate integrating third-party services to handle caching, store downloaded files, and more.
 
 For a more efficient experience, especially for high-end users, consider using the desktop application:
 
