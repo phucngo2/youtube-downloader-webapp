@@ -22,6 +22,7 @@ interface IDownloadProgressState extends IDownloadMessage, IDownloadResult {}
 interface IDownloadProgressContext {
   downloadProgress: IDownloadProgressState;
   clearProgress: () => void;
+  completeProgress: () => void;
 }
 
 export const downloadProgressInitialValue: IDownloadProgressState = {
@@ -33,14 +34,14 @@ export const downloadProgressInitialValue: IDownloadProgressState = {
 const DownloadProgressContext = createContext<IDownloadProgressContext>(null!);
 const DownloadProgressContextProvider = (props: Props) => {
   const { lastMessage } = useSocketContext();
-  const [downloadProgress, setDownloadProgress] =
+  const [downloadProgress, _setDownloadProgress] =
     useState<IDownloadProgressState>(downloadProgressInitialValue);
 
   useEffect(() => {
     if (lastMessage?.data) {
       let data = JSON.parse(lastMessage?.data) as IEventDownloadProgress;
       if (data.event === EVENT_DOWNLOAD_VIDEO_PROGRESS) {
-        setDownloadProgress((state) => ({
+        _setDownloadProgress((state) => ({
           ...state,
           ...data.data,
         }));
@@ -49,12 +50,20 @@ const DownloadProgressContextProvider = (props: Props) => {
   }, [lastMessage]);
 
   const clearProgress = useCallback(() => {
-    setDownloadProgress(downloadProgressInitialValue);
-  }, [setDownloadProgress]);
+    _setDownloadProgress(downloadProgressInitialValue);
+  }, [_setDownloadProgress]);
+
+  const completeProgress = useCallback(() => {
+    _setDownloadProgress((state) => ({
+      ...state,
+      status: "Success",
+      downloaded: state.total,
+    }));
+  }, [_setDownloadProgress]);
 
   const value = useMemo(
-    () => ({ downloadProgress, clearProgress }),
-    [downloadProgress, clearProgress]
+    () => ({ downloadProgress, clearProgress, completeProgress }),
+    [downloadProgress, clearProgress, completeProgress]
   );
 
   return (

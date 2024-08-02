@@ -10,7 +10,7 @@ import { useCallback, useState } from "react";
 import { useModal } from "./useModal";
 
 export const useHandleDownload = (data: VideoData) => {
-  const { clearProgress } = useDownloadProgressContext();
+  const { clearProgress, completeProgress } = useDownloadProgressContext();
   const [downloading, setDownloading] = useState(false);
   const { isShowing, setIsShowing } = useModal();
   const [size, setSize] = useState<string>("");
@@ -26,6 +26,7 @@ export const useHandleDownload = (data: VideoData) => {
         responseType: "blob", // important
       })
         .then((response) => {
+          completeProgress();
           downloadBlob(response.data, filename);
           setDownloading(false);
         })
