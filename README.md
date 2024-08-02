@@ -12,6 +12,10 @@ Yet another youtube downloader web application!
 - [ ] Improve the file download workflow.
 - [ ] Investigate the issue where the server fails to download files upon initial startup.
 ## ⚠️ Readme
-This repository is a demo for learning purposes! The production deployment may require significant hardware resources on the backend server when hosted. For a more efficient experience, especially for high-end users, consider using the desktop application:
+This repository is a demo for learning purposes and is not yet ready for production!
+
+Deploying this application in a production environment may require significant hardware resources on the backend server and might necessitate integrating integrate third-party services to handle caching, store downloaded files, and more.
+
+For a more efficient experience, especially for high-end users, consider using the desktop application:
 
 👉 [Youtube Downloader Desktop Application](https://github.com/phucngo2/youtube-downloader)
