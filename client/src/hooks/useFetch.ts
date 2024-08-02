@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import axios from "./axios";
+import axios from "../utils/axios";
 
 interface FetchOption {
   method?: "GET" | "POST" | "PUT" | "DELETE";

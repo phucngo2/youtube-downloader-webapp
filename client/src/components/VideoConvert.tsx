@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
+import { useHandleDownload } from "../hooks";
 import { VideoData } from "../types";
 import { filterDownloadFormat, humanFileSize } from "../utils/helpers";
-import { useModal } from "../utils/useModal";
 import DownloadConvertedButton from "./DownloadConvertedButton";
 import LoadingButNotCooler from "./LoadingButNotCooler";
 import DownloadModal from "./Modal";
@@ -12,8 +12,8 @@ interface VideoConvertProps {
 }
 
 const VideoConvert: React.FC<VideoConvertProps> = ({ data }) => {
-  const [downloading, setDownloading] = React.useState(false);
-  const { isShowing, setIsShowing } = useModal();
+  const { downloading, handleDownload, isShowing, setIsShowing, size } =
+    useHandleDownload(data);
 
   const dataConvert = useMemo(() => {
     return filterDownloadFormat(data.formats);
@@ -59,9 +59,7 @@ const VideoConvert: React.FC<VideoConvertProps> = ({ data }) => {
             <>
               <DownloadConvertedButton
                 format={format}
-                data={data}
-                setIsShowing={setIsShowing}
-                setDownloading={setDownloading}
+                handleDownload={handleDownload}
                 downloading={downloading}
               />
               {format.url && (
@@ -85,10 +83,7 @@ const VideoConvert: React.FC<VideoConvertProps> = ({ data }) => {
       <DownloadModal
         title="Downloading..."
         modalContent={
-          <LoadingButNotCooler
-            videoTitle={data.title}
-            downloading={downloading}
-          />
+          <LoadingButNotCooler videoTitle={data.title} size={size} />
         }
         open={isShowing}
         setOpen={setIsShowing}

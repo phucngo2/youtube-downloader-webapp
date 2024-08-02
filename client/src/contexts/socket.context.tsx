@@ -1,5 +1,5 @@
-import { createContext, useContext, useMemo } from "react";
-import useWebSocket from "react-use-websocket";
+import { createContext, useContext, useEffect, useMemo } from "react";
+import useWebSocket, { ReadyState } from "react-use-websocket";
 import { WEBSOCKET_ENDPOINT } from "../config/endpoint.config";
 
 interface Props {
@@ -7,13 +7,24 @@ interface Props {
 }
 
 interface ISocketContext {
-  lastMessage: MessageEvent<any> | null;
+  lastMessage: MessageEvent<string> | null;
 }
 
 const SocketContext = createContext<ISocketContext>(null!);
 const SocketContextProvider = (props: Props) => {
-  const { lastMessage } = useWebSocket(WEBSOCKET_ENDPOINT);
-  const value = useMemo(() => ({ lastMessage }), [lastMessage]);
+  const { lastMessage, readyState } = useWebSocket(WEBSOCKET_ENDPOINT);
+  const value = useMemo(
+    () => ({
+      lastMessage: lastMessage as MessageEvent<string>,
+    }),
+    [lastMessage]
+  );
+
+  useEffect(() => {
+    if (readyState == ReadyState.OPEN) {
+      console.log("🚀 Socket connected!");
+    }
+  }, [readyState]);
 
   return (
     <SocketContext.Provider value={value}>

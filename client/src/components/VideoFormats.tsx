@@ -1,7 +1,7 @@
 import React from "react";
 import { humanFileSize } from "../utils/helpers";
 
-import { useModal } from "../utils/useModal";
+import { useModal } from "../hooks";
 import DownloadModal from "./Modal";
 import Table from "./Table";
 
