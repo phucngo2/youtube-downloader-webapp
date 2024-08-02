@@ -27,7 +27,7 @@ const VideoFormats: React.FC<VideoFormatsProps> = ({ data }) => {
       <div className="fw-bold pb-3 pt-2">Raw Formats!</div>
 
       <div className="pb-4">
-        Some quality formats have 2 options because Youtube generates 2 video
+        Some quality formats have 2 options because YouTube generates 2 video
         encoding formats. Please click on "preview" before downloading a video
         format to check whether the format is still working or cannot be played
         by normal player.

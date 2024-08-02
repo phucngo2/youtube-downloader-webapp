@@ -35,7 +35,7 @@ function App() {
     <div className="App">
       <div className="container border rounded">
         <h4 className="fs-heading heading">
-          <i className="icon youtube red"></i> Youtube video stalker
+          <i className="icon youtube red"></i> YouTube video stalker
         </h4>
 
         <SearchBox

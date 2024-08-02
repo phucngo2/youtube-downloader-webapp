@@ -24,7 +24,7 @@ const VideoConvert: React.FC<VideoConvertProps> = ({ data }) => {
       <div className="fw-bold pb-3 pt-2">Encode &amp; Download!</div>
 
       <div className="pb-4">
-        The original Youtube video format doesn't have audio. These options
+        The original YouTube video format doesn't have audio. These options
         below will encode the video to merge video and audio together before
         downloading, so it will take a little bit longer than usual, but the
         video output will have higher quality with audio included.
