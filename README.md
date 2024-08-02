@@ -6,10 +6,11 @@ Yet another youtube downloader web application!
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 ![Semantic UI React](https://img.shields.io/badge/Semantic%20UI%20React-%2335BDB2.svg?style=for-the-badge&logo=SemanticUIReact&logoColor=white)
-## 🎯 To-Dos
-- [X] Improve performance by implementing `worker_threads`.
-- [ ] Implement real-time video download progress using `WebSocket`.
+## 🎯 Future Improvements
+- [X] Enhance performance by implementing `worker_threads`.
+- [X] Implement real-time video download progress using `WebSocket`.
 - [ ] Improve the file download workflow.
+- [ ] Investigate the issue where the server fails to download files upon initial startup.
 ## ⚠️ Readme
 This repository is a demo for learning purposes! The production deployment may require significant hardware resources on the backend server when hosted. For a more efficient experience, especially for high-end users, consider using the desktop application:
 
